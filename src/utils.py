@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+import numpy as np # type: ignore
 import scipy.stats 
 from scipy.stats import zscore
 

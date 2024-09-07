@@ -53,3 +53,5 @@ print(df.head())  # Display the first few rows of the DataFrame
 conn.close()
 print(df.describe)
 
+from src.utils import missing_values_table, convert_bytes_to_megabytes
+
