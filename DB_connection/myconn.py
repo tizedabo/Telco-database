@@ -39,7 +39,8 @@ if conn:
     print("Connected to PostgreSQL successfully!")
     # Perform database operations here
     read_data(conn)
-    
+    df = pd.DataFrame(read_data(conn))
+
     #conn.close()
 else:
     print("Failed to connect to PostgreSQL.")
@@ -48,10 +49,11 @@ else:
     # Example query
 
 # Convert the result to a Pandas DataFrame
-df = pd.DataFrame(read_data(conn))
+#df = pd.DataFrame(read_data(conn))
 print(df.head())  # Display the first few rows of the DataFrame
 conn.close()
 print(df.describe)
 
-from src.utils import missing_values_table, convert_bytes_to_megabytes
+#from src.utils import missing_values_table, convert_bytes_to_megabytes
+
 

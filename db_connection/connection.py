@@ -41,7 +41,7 @@ class PostgresConnection:
 
 # Example usage:
 # Replace dbname, user, password with your actual database credentials
-db = PostgresConnection(dbname='teleco', user='postgres', password='post@5432')
+db = PostgresConnection(dbname='telecom', user='postgres', password='post@5432')
 db.connect()
 
 # Example query
@@ -51,6 +51,5 @@ result = db.execute_query(query)
 # Convert the result to a Pandas DataFrame
 df = pd.DataFrame(result, columns=[desc[0] for desc in db.cursor.description])
 print(df.head())  # Display the first few rows of the DataFrame
-
 # Close the connection when done
 db.close_connection()
