@@ -20,7 +20,7 @@ sys.path.insert(0, parent_dir)
 st.set_page_config(page_title="Tellco Dashboard", page_icon=":bar_chart:", layout="wide")
 
 # ---- READ data from DATABASE ----
-
+def loaddata()
 db = PostgresConnection(dbname='telecom', user='postgres', password='post@5432')
 db.connect()
 # Example query
@@ -29,27 +29,48 @@ result = db.execute_query(query)
 
 # Convert the result to a Pandas DataFrame
 df = pd.DataFrame(result, columns=[desc[0] for desc in db.cursor.description])
-print(df.head())  # Display the first few rows of the DataFrame
+#print(df.head())  # Display the first few rows of the DataFrame
 
   
 # Close the connection when done
 db.close_connection()
-
-st.write("Tellco Dashboards")
-st.write(df)
+return df
+#st.write("Tellco Dashboards")
+#st.write(df)
 
 #####################################
-def loadData():
+#def loadData():
     #df = pd.read_sql("SELECT * FROM xdr_data")
-    df = pd.DataFrame(result, columns=[desc[0] for desc in db.cursor.description])
-
+    #df = pd.DataFrame(result, columns=[desc[0] for desc in db.cursor.description])
+#['Bearer Id', 'Start', 'Start ms', 'End', 'End ms', 'Dur. (ms)', 'IMSI', 'MSISDN/Number', 'IMEI', 'Last Location Name', 'Avg RTT DL (ms)',
+#  'Avg RTT UL (ms)',
+#  'Avg Bearer TP DL (kbps)', 'Avg Bearer TP UL (kbps)', 'TCP DL Retrans. Vol (Bytes)', 'TCP UL Retrans. Vol (Bytes)',
+#  'DL TP < 50 Kbps (%)', '50 Kbps < DL TP < 250 Kbps (%)', '250 Kbps < DL TP < 1 Mbps (%)', 'DL TP > 1 Mbps (%)', 'UL TP < 10 Kbps (%)',
+#  '10 Kbps < UL TP < 50 Kbps (%)', '50 Kbps < UL TP < 300 Kbps (%)', 'UL TP > 300 Kbps (%)', 'HTTP DL (Bytes)', 'HTTP UL (Bytes)',
+#  'Activity Duration DL (ms)', 'Activity Duration UL (ms)', 'Dur. (ms).1', 'Handset Manufacturer', 'Handset Type', 
+# 'Nb of sec with 125000B < Vol DL', 'Nb of sec with 1250B < Vol UL < 6250B', 'Nb of sec with 31250B < Vol DL < 125000B', 
+# 'Nb of sec with 37500B < Vol UL', 'Nb of sec with 6250B < Vol DL < 31250B', 'Nb of sec with 6250B < Vol UL < 37500B',
+#  'Nb of sec with Vol DL < 6250B', 'Nb of sec with Vol UL < 1250B', 'Social Media DL (Bytes)', 'Social Media UL (Bytes)', 
+# 'Google DL (Bytes)', 'Google UL (Bytes)', 'Email DL (Bytes)', 'Email UL (Bytes)', 'Youtube DL (Bytes)', 'Youtube UL (Bytes)', 
+# 'Netflix DL (Bytes)', 'Netflix UL (Bytes)', 'Gaming DL (Bytes)', 'Gaming UL (Bytes)', 'Other DL (Bytes)', 'Other UL (Bytes)', 
+# 'Total UL (Bytes)', 'Total DL (Bytes)']
+""""
     df['Total Avg RTT (ms)'] = df['Avg RTT DL (ms)'] + df['Avg RTT UL (ms)']
     df['Total Avg Bearer TP (kbps)'] = df['Avg Bearer TP DL (kbps)'] + df['Avg Bearer TP UL (kbps)']
     df['Total TCP Retrans. Vol (Bytes)'] = df['TCP DL Retrans. Vol (Bytes)'] + df['TCP UL Retrans. Vol (Bytes)']
+    df['Social Media Data Volume (Bytes)']= df['Social Media DL (Bytes)'] + df['Social Media UL (Bytes)']
+    df['Google Data Volume (Bytes)']=df['Google DL (Bytes)'] + df['Google UL (Bytes)']
+    df['Email Data Volume (Bytes)']=df['Email DL (Bytes)']+ df['Email UL (Bytes)']
+    df['Youtube Data Volume (Bytes)']=df['Youtube DL (Bytes)'] + df['Youtube UL (Bytes)']
+    df['Netflix Data Volume (Bytes)']=df['Netflix DL (Bytes)'] + df['Netflix UL (Bytes)']
+    df['Gaming Data Volume (Bytes)']=df['Gaming DL (Bytes)'] + df['Gaming UL (Bytes)']
+    df['Other Data Volume (Bytes)']=df['Other DL (Bytes)'] + df['Other UL (Bytes)']
+    df['Total Data Volume (Bytes)']=df['Total UL (Bytes)'] + df['Total DL (Bytes)']
+
 
     df = df[[
         'Bearer Id',
-        'Dur (ms)',
+        'Dur. (ms)',
         'IMSI',
         'MSISDN/Number',
         'IMEI',
@@ -66,8 +87,8 @@ def loadData():
         'Gaming Data Volume (Bytes)',
         'Other Data Volume (Bytes)',
         'Total Data Volume (Bytes)']]
-
-    return df
+"""
+    
 
 def displayHandsetsInfo(df):
     st.title("Users Handsets")
@@ -80,7 +101,7 @@ def displayHandsetsInfo(df):
     st.write("")
     st.markdown("**Handset types with more than 700 devices.**")
     plotly_plot_pie(df, 'Handset Type', 700)
-
+"""
 def displayClusterInfo(df):
     st.title("User Clusters")
     st.write("")
@@ -110,7 +131,7 @@ def displayClusterInfo(df):
     st.markdown("**Users classified into 2 clusters based on their satisfactio(i.e. engagement score and experience score).**")
     plotly_plot_scatter(df, 'engagement_score', 'experience_score',
             'satisfaction_cluster', 'satisfaction_score')
-
+"""
 def displayApplicationsInfo(df):
     st.title("Usage of applications")
     st.write("")
@@ -174,7 +195,7 @@ def plotly_plot_scatter(df, x_col, y_col, color, size):
     st.plotly_chart(fig)
 
 # because the data in the database doesn't change, we need to call loadData() only once
-df, scores_df = loadData()
+#df, scores_df = loadData()
 st.sidebar.title("Pages")
 choices = ["Handsets", "Applications", "User Clusters"]
 page = st.sidebar.selectbox("Choose Page",choices)
@@ -186,6 +207,6 @@ if page == "Handsets":
     pass
 elif page == "Applications":
     displayApplicationsInfo(df)
-elif page == "User Clusters":
-    displayClusterInfo(df)
+#elif page == "User Clusters":
+ #   displayClusterInfo(df)
 
