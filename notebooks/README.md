@@ -1,2 +1,8 @@
-# Financial-News-Vs-Stock-market
-Analysis of financial news and stock price integration data to discover correlations between news sentiment and stock market movements.
+# This task focuses on analyzing a telecommunication dataset to determine the growth potential of TellCo and recommend whether it's a worthwhile investment. 
+**Business Objective**
+Analyze a telecommunication dataset to determine the growth potential of TellCo and recommend whether it's a worthwhile investment.
+**Key Areas of Analysis:
+    User Overview analysis
+    User Engagement analysis
+    User Experience analysis
+    User Satisfaction Analysis
